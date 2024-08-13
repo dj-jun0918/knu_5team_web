@@ -3,6 +3,7 @@ const apiController = require('./controller');
 const app = express();
 app.use(express.json());
 app.use(express.static("public"));//public 밑에 정적 파일을 실행
+console.log("exec express");
 app.use("/api",apiController);
 
 app.post("/api/login", (req,res) =>{
