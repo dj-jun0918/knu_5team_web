@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));//public 밑에 정적 파일을 실행
 app.use("/api",apiController);
-
+console.log("exec express");
 app.post("/api/login", (req,res) =>{
     const body = req.body; // email.과 비번을 담고 있는 데이터
     const email = body.email;
