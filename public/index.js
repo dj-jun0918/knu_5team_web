@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-//브라우저에서 사용하는 클라이언트 전용 자스
-
-window.addEventListener("load", () => {
-  console.log("로그인 페이지 로딩 완료");
-=======
 window.addEventListener("load", () => {
   console.log("로그인 페이지 로딩 완료.");
->>>>>>> fce3c7f35b5362d4fe8c543cc971f571ae9b9c80
 });
 
 const emailInput = document.getElementById("user_email");
