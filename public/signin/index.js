@@ -6,22 +6,23 @@ signinButton.addEventListener("click", async () => {
   const email = signinEmail.value;
   const password = signinPassword.value;
   try {
-    const signinResult = await fetch("/api/user/signin", {
+    const signinReslut = await fetch("/api/user/signin", {
       method: "post",
       body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (signinResult.ok) {
-      const result = await signinResult.json();
-      console.log(result);
+    if (signinReslut.ok) {
+      const result = await signinReslut.json();
+      console.log("로그인 성공", result);
+      alert("로그인 성공!");
       localStorage.setItem("token", result.token);
     } else {
       alert("로그인 오류");
     }
   } catch (err) {
     console.error(err);
-    alert("(!)로그인 오류!");
+    alert("로그인 오류");
   }
 });

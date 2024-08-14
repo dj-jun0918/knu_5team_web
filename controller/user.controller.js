@@ -38,8 +38,19 @@ userController.post("/signin", async (req, res) => {
   }
 });
 
+// userController.post("/token", (req, res) => {
+//   const token = req.body.token;
+//   const isValidToken =
+// })
+
 userController.post("/", async (req, res) => {
   //회원 가입 api 요청
+  //1. 이메일 검증
+  if (!email.includes("@")) {
+    return res
+      .status(400)
+      .json({ isError: true, message: "잘못된 email 입니다." });
+  }
   const { email, password, nickname } = req.body; // const email = req.body.email;
 
   //1. 이메일 검증

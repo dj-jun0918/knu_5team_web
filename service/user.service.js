@@ -23,7 +23,16 @@ const getUserByEmail = async (email) => {
     return null;
   }
 };
+// const getUserByToken = async () => {
+//   try {
+//     const token;
+//     return true;
+//   } catch (err){
+//     return null;
+//   }
+// }
 module.exports = {
   createUser,
   getUserByEmail,
+  // getUserByToken,
 };
