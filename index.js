@@ -1,17 +1,20 @@
-const express = require("express"); // express 모듈 가져옴
+const express = require("express");
 const apiController = require("./controller");
 const app = express();
 app.use(express.json());
-app.use(express.static("public"));
-
-app.use("/api", apiController); //
+app.use(express.static("public")); //public 밑에 정적 파일을 실행
+console.log("exec express");
+app.use("/api", apiController);
 
 app.post("/api/login", (req, res) => {
-  const body = req.body;
+  const body = req.body; // email.과 비번을 담고 있는 데이터
   const email = body.email;
-  const password = body.password; // = const{email, password} = body;
-  console.log(email, password);
-  return res.json({ message: "login success" });
+  const password = body.password;
+  const nickname = body.nickname;
+  console.log(body);
+  console.log(email, password, nickname);
+  //DB에 해당 이메일과 비번 조회후 로그인 여부 판단
+  return res.json({ message: "로그인 성공" });
 });
 // 이메일과 패스워드가 같이 담겨 있는 body
 //DB에 해당 emial, password 조회해서 로그인 여부 판단
@@ -19,10 +22,4 @@ app.post("/api/login", (req, res) => {
 
 app.listen(8000, () => {
   console.log("Express Running on 8000");
-}); //첫번째 인자 : 현재 epress가 구독하고 있는 포트번호
-
-// app.post("/api/signup", (req, res) => {
-//     const{email, password, nickname} = req.body;
-//     console.log("회원 가입 :", email, password, nickname);
-//     return res.json({message : "join success"});
-// });
+}); //포트번호, 함수

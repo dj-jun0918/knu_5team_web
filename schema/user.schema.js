@@ -2,7 +2,6 @@ const mongoose = require("../db_init");
 const { String } = mongoose.Schema.Types;
 const userSchema = new mongoose.Schema(
   {
-    //기타 등등 삽입 가능 ex 전번, 생년월일
     email: {
       type: String,
       required: true,
@@ -14,11 +13,11 @@ const userSchema = new mongoose.Schema(
     nickname: {
       type: String,
       required: true,
-    },
+    }, //추가하고싶은 내용 같은 형식으로 자유롭게 넣기
   },
   {
     timestamps: {
-      createdAt: "createdAt",
+      createAt: "createdAt",
       updatedAt: "updatedAt",
     },
   }
