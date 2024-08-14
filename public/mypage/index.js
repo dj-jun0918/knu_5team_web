@@ -11,3 +11,6 @@
 //4.(프론트) 3번으로 부터 받은 응답값을 통해서
 //토큰이 유효하다면 그대로 페이지 사용을 하게함
 //토큰이 유효하지 않다면 localHost/singin 페이지로 보냄
+window.addEventListener("load", () => {
+  console.log("마이페이지 로딩 완료.");
+});

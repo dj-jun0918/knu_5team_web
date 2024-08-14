@@ -5,6 +5,9 @@ window.addEventListener("load", () => {
 const emailInput = document.getElementById("user_email");
 const passwordInput = document.getElementById("user_password");
 const loginButton = document.getElementById("login_button");
+const joinButton = document.getElementById("join_button");
+
+const mypageButton = document.getElementById("mypage_button");
 
 loginButton.addEventListener("click", async () => {
   const email = emailInput.value;
@@ -27,4 +30,12 @@ loginButton.addEventListener("click", async () => {
     const loginResult = await fetchLogin.json();
     console.log(loginResult);
   }
+});
+
+mypageButton.addEventListener("click", () => {
+  window.location.href = "/mypage/index.html"; // mypage로 이동
+});
+
+joinButton.addEventListener("click", () => {
+  window.location.href = "/signup/index.html"; // mypage로 이동
 });

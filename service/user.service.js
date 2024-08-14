@@ -3,8 +3,8 @@ const User = require("../schema/user.schema");
 //user = {email : "", nickname: "", password: ""}
 const createUser = async (user) => {
   try {
-    const createUser = await User.create(user);
-    console.log(createUser);
+    const createdUser = await User.create(user);
+    console.log(createdUser);
   } catch (err) {
     console.log(err);
   }

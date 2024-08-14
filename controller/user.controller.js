@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { createUser, getUserByEmail } = require("../service/user.service");
 const jwt = require("jsonwebtoken");
+const userController = require("express").Router();
 //회원가입 사이트
 userController.post("/signin", async (req, res) => {
   //사용자로부터 이메일과 비번 받음
