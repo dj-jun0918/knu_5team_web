@@ -41,7 +41,7 @@ userController.post("/signin", async (req, res) => {
 userController.post("/token", async (req, res) => {
   const token = req.body.token;
   if (token) {
-    const isValidToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
     try {
       if (isValidToken) {
         return res.json({ result: true, token });
@@ -51,7 +51,9 @@ userController.post("/token", async (req, res) => {
           .json({ result: false, message: "로그인 상태가 아닙니다." });
       }
     } catch (err) {
-      return res.json(400).json({ message: "토큰이 존재하지 않습니다." });
+      return res
+        .json(401)
+        .json({ result: false, message: "토큰이 존재하지 않습니다." });
     }
   }
 });
