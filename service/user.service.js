@@ -24,6 +24,7 @@ const getUserByEmail = async (email) => {
   }
 }; //유저 정보를 가져옴
 
+
 module.exports = {
   createUser,
   getUserByEmail,

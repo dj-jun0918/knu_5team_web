@@ -36,6 +36,7 @@ mypageButton.addEventListener("click", async () => {
   const tokenKey = localStorage.getItem("token");
   if (!tokenKey) {
     console.log("localStorage에 저장된 토큰이 없습니다.");
+    window.location.href = "./signin";
     return;
   }
   try {
