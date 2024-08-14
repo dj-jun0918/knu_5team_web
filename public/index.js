@@ -6,6 +6,7 @@ const emailInput = document.getElementById("user_email");
 const passwordInput = document.getElementById("user_password");
 const nicknameInput = document.getElementById("user_nickname");
 const loginButton = document.getElementById("login_button");
+const mypageButton = document.getElementById("mypage_button");
 
 loginButton.addEventListener("click", async () => {
   const email = emailInput.value;
@@ -27,5 +28,22 @@ loginButton.addEventListener("click", async () => {
   if (fetchLogin.ok) {
     const loginResult = await fetchLogin.json();
     console.log(loginResult);
+  }
+});
+
+mypageButton.addEventListener("click", async () => {
+  const tokenKey = localStorage.getItem("token");
+  const tokenIsValid = await fetch("/api/user/token", {
+    method: "post",
+    body: JSON.stringify({ tokenKey }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(tokenIsValid.body);
+  if (tokenIsValid) {
+    window.location.href = "./mypage";
+  } else {
+    window.location.href = "./signin";
   }
 });
