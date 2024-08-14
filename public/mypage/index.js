@@ -11,3 +11,34 @@
 //4.(프론트) 3번으로 부터 받은 응답값을 통해서
 //토큰이 유효하다면 그대로 페이지 사용을 하게함
 //토큰이 유효하지 않다면 localHost/singin 페이지로 보냄
+window.addEventListener("load", async () => {
+  const tokenKey = localStorage.getItem("token");
+  if (!tokenKey) {
+    console.log("localStorage에 저장된 토큰이 없습니다.");
+    window.location.href = "/signin";
+  }
+  try {
+    const tokenIsValid = await fetch("/api/user/token", {
+      method: "post",
+      body: JSON.stringify({ token: tokenKey }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (tokenIsValid.ok) {
+      const result = await tokenIsValid.json();
+      console.log("result", result);
+      // result = {result : true}
+      if (result.result) {
+        console.log("T성공");
+        // window.location.href = "/mypage";
+      } else {
+        window.location.href = "/signin";
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    return;
+  }
+});
