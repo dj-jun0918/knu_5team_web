@@ -1,25 +1,34 @@
-window.addEventListener("load", ()=>{
-    console.log("로그인 페이지 로딩 완료.");
+//브라우저에서 사용하는 클라이언트 전용 자스
+
+window.addEventListener("load", () => {
+  console.log("로그인 페이지 로딩 완료");
 });
 
 const emailInput = document.getElementById("user_email");
 const passwordInput = document.getElementById("user_password");
-const nicknameInput = document.getElementById("user_nickname");
 const loginButton = document.getElementById("login_button");
 
-loginButton.addEventListener("click", async ()=>{
-    const email = emailInput.value;
-    const password = passwordInput.value;
-    const nickname = nicknameInput.value;
-    console.log(email, password, nickname);
+const joinButton = document.getElementById("signup_button");
 
-    const fetchLogin = await fetch("/api/login", {method: "post", body: JSON.stringify({email: email, password: password, nickname: nickname}),
-        headers:{
-            'Content-Type': "application/json"
-        },
-    });
-    if(fetchLogin.ok){
-        const loginResult = await fetchLogin.json();
-        console.log(loginResult);
-    }
+loginButton.addEventListener("click", async () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  console.log(email, password);
+
+  const fetchLogin = await fetch("/api/login", {
+    method: "post",
+    body: JSON.stringify({ email: email, password: password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); //await 사용 시 async 사용
+
+  if (fetchLogin.ok) {
+    const loginResult = await fetchLogin.json();
+    console.log(loginResult);
+  }
+});
+
+joinButton.addEventListener("click", () => {
+  window.location.href = "signup/index.html"; // 두 번째 HTML 파일의 경로
 });

@@ -2,7 +2,7 @@ const signupEmail = document.getElementById("signup_email");
 const signupPassword = document.getElementById("signup_password");
 const signupNickname = document.getElementById("signup_nickname");
 
-const signupButton = document.getElementById("signup_button");
+const signupButton = document.getElementById("signup_complete_button");
 
 signupButton.addEventListener("click", async () => {
   const user = {
@@ -22,7 +22,7 @@ signupButton.addEventListener("click", async () => {
     if (signupResult.ok) {
       alert("회원가입 성공");
     } else {
-      alert("회원가입 실패");
+      alert("(!)회원가입 실패");
     }
   } catch (err) {
     console.error(err);

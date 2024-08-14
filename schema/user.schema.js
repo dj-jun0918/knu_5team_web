@@ -1,26 +1,27 @@
 const mongoose = require("../db_init");
-const {String} = mongoose.Schema.Types;
+const { String } = mongoose.Schema.Types;
 const userSchema = new mongoose.Schema(
-    {
-    email:{
-        type: String,
-        required: true,
+  {
+    //기타 등등 삽입 가능 ex 전번, 생년월일
+    email: {
+      type: String,
+      required: true,
     },
-    password:{
-        type: String,
-        required: true,
+    password: {
+      type: String,
+      required: true,
     },
-    nickname:{
-        type: String,
-        required: true,
-    },//추가하고싶은 내용 같은 형식으로 자유롭게 넣기
-},
-    {
-        timestamps:{
-            createAt: "createdAt",
-            updatedAt: "updatedAt",
-        },
-    }
+    nickname: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: {
+      createdAt: "createdAt",
+      updatedAt: "updatedAt",
+    },
+  }
 );
 
 const User = mongoose.model("User", userSchema);
