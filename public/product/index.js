@@ -26,17 +26,25 @@ const renderProductList = async () => {
   //productList가 존재하는 경우
   productList.forEach((v) => {
     const itemElem = document.createElement("div");
+    itemElem.id = `product-${v.productId}`;
+    itemElem.style.width = 300;
+    itemElem.style.margin = 20;
     itemElem.innerHTML = `
-      <div>${v.title}</div>
-      <div>가격: ${v.price}원</div>
-      <div>[상세설명] ${v.description}</div>
       <div>
         <img src="${v.imgUrl}"/>
       </div>
+      <div>
+      <div>${v.title}</div>
+      <div>가격: ${v.price}원</div>
+      <div>[상세설명] ${v.description}</div>
       <div>재고수량: ${v.stock}(개)</div>
+      </div>
     `;
     productListWrapper.append(itemElem);
+    itemElem.addEventListener("click", () => {
+      // 예를 들어, productId를 사용하여 제품 상세 페이지로 이동
+      window.location.href = `./detail?productId=${v.productId}`;
+    });
   });
 };
-
 renderProductList();

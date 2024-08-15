@@ -22,6 +22,7 @@ const getUserByEmail = async (email) => {
   } catch (err) {
     return null;
   }
+<<<<<<< HEAD
 };
 // const getUserByToken = async () => {
 //   try {
@@ -31,6 +32,11 @@ const getUserByEmail = async (email) => {
 //     return null;
 //   }
 // }
+=======
+}; //유저 정보를 가져옴
+
+
+>>>>>>> a3488c4fa17aa2c5a1dc5805625ef4dc29252187
 module.exports = {
   createUser,
   getUserByEmail,
