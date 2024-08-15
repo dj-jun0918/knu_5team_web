@@ -10,15 +10,20 @@ const createUser = async (user) => {
 };
 
 const getUserId = async (email) => {
-  const user = await User.findOne({ email: email });
+  try {
+    const user = await User.findOne({ email: email });
 
-  // 사용자가 존재하지 않는 경우 처리
-  if (!user) {
-    throw new Error("User not found");
+    return user._id; // user._id를 통해 ObjectId를 반환
+  } catch (err) {
+    return null;
   }
-
-  return user._id; // user._id를 통해 ObjectId를 반환
+  // const user = await User.findOne({ email: email });
+  // // if (!user) {
+  // //   throw new Error("User not found");
+  // // }
+  // return user._id; // user._id를 통해 ObjectId를 반환
 };
+
 const getUserByEmail = async (email) => {
   //예측할 수 없는 서버단의 오류를 위해 try-catch 설정
   try {
