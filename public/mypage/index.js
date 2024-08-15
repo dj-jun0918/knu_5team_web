@@ -28,12 +28,13 @@ window.addEventListener("load", async () => {
 
     if (tokenIsValid.ok) {
       const result = await tokenIsValid.json();
-      console.log("result", result);
+      //console.log("result", result);
       // result = {result : true}
       if (result.result) {
         console.log("T성공");
         // window.location.href = "/mypage";
       } else {
+        console.log("로그인 x");
         window.location.href = "/signin";
       }
     }
