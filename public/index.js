@@ -49,9 +49,9 @@ mypageButton.addEventListener("click", async () => {
     });
 
     if (tokenIsValid.ok) {
-      const result = await tokenIsValid.json();
+      const IsValidResult = await tokenIsValid.json();
       // result = {result : true}
-      if (result.result) {
+      if (IsValidResult.result) {
         window.location.href = "./mypage";
       } else {
         window.location.href = "./signin";
