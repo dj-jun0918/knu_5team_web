@@ -31,22 +31,23 @@ const makeDiv = async () => {
     return;
   }
   const itemElem = document.createElement("div");
+  itemElem.classList.add("product-item");
   itemElem.innerHTML = `
-      <div>
-        <img src="${product.imgUrl}"/>
-      </div>
-      <div>
-      <div>${product.title}</div>
-      <div>가격: ${product.price}원</div>
-      <div>[상세설명] ${product.description}</div>
-      <div>재고수량: ${product.stock}(개)</div>
-      <input type="number" width=7px style="text-align:center" 
-      name="inputValue" id="inputValue" min=1 max=${product.stock} 
-      />
-      <button id="shoppingBasket"> 장바구니 </button>
-      <button id="purchaseButton"> 구매하기 </button>
-      </div>
-    `;
+  <div>
+    <img src="${product.imgUrl}" alt="${product.title}"/>
+  </div>
+  <div class="product-info">
+    <div>${product.title}</div>
+    <div class="product-price">가격: ${product.price.toLocaleString()}원</div>
+    <div>[상세설명] ${product.description}</div>
+    <div>재고수량: ${product.stock}개</div>
+    <input type="number" style="text-align:center" 
+    name="inputValue" id="inputValue" value="1" min="1" max="${product.stock}" 
+    />
+    <button id="shoppingBasket"> 장바구니 </button>
+    <button id="purchaseButton"> 구매하기 </button>
+  </div>
+`;
   productWrapper.append(itemElem);
   const shoppingBasket = document.getElementById("shoppingBasket");
   const purchaseButton = document.getElementById("purchaseButton");
@@ -54,19 +55,7 @@ const makeDiv = async () => {
   //let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   purchaseButton.addEventListener("click", () => {
-    if (addButton.value > 0) {
-      // 새로운 객체 생성
-      const obj = {
-        productId: product.productId,
-        title: product.title,
-        imgUrl: product.imgUrl,
-        price: product.price,
-        stock: product.stock,
-        orderCount: addButton.value, // 현재 입력한 수량
-      };
-
-      setProductItemToStorage(obj);
-    }
+    window.location.href = "../../order";
   });
 
   shoppingBasket.addEventListener("click", () => {
@@ -102,7 +91,7 @@ const setProductItemToStorage = (obj) => {
       },
     ];
     localStorage.setItem("cart", JSON.stringify(renwalCart)); //ok
-    window.location.href = "../cart";
+    window.location.href = "../../cart";
   } else {
     const existingProductIndex = prevCart.findIndex(
       (item) => item.productId === obj.productId
@@ -111,21 +100,35 @@ const setProductItemToStorage = (obj) => {
       // new value => {productId:1, orderCount:5}
       // [{productId:1, orderCount:2}, {productId:2, orderCount:2}]
       // result => [{productId:1, orderCount:5}, {productId:2, orderCount:2}]
+      // 현재 주문하려고 하는 수량 + 기존에 담겨있던 주문수량
+      const orderCount =
+        Number(obj.orderCount) +
+        Number(prevCart[existingProductIndex].orderCount);
+      const stock = Number(prevCart[existingProductIndex].stock);
+      if (orderCount > stock) {
+        alert(`(!)현재 ${prevCart.title} 상품은 수량 초과입니다`);
+        return;
+      }
       const resultCart = prevCart.map((cart) => ({
         ...cart,
-        orderCount:
-          prevCart[existingProductIndex].productId === obj.productId
-            ? obj.orderCount
-            : cart.orderCount,
+        orderCount: orderCount,
+        // prevCart[existingProductIndex].productId === obj.productId
+        //   ? obj.orderCount
+        //   : cart.orderCount,
       }));
-      // [{{productId:1, orderCount:2}]
-      console.log(resultCart);
+      // const orderCount = Number(resultCart[existingProductIndex].orderCount);
+      // const stock = Number(prevCart[existingProductIndex].stock);
+      // if (orderCount > stock) {
+      //   alert(`(!)현재 ${resultCart.title} 상품은 수량 초과입니다`);
+      //   return;
+      // } // 이따가 질문할 것
+      console.log(typeof resultCart.orderCount);
       localStorage.setItem("cart", JSON.stringify(resultCart));
-      window.location.href = "../cart";
+      window.location.href = "../../cart";
     } else {
       pushCart.push(obj);
       localStorage.setItem("cart", JSON.stringify(pushCart));
-      window.location.href = "../cart";
+      window.location.href = "../../cart";
     }
   }
 }; //로컬 스토리지 저장을 자동화 하게 해주는 함수

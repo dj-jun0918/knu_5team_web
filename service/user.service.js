@@ -10,6 +10,7 @@ const createUser = async (user) => {
 };
 
 const getUserId = async (email) => {
+  //order에서 사용하는 서비스 로직
   try {
     const user = await User.findOne({ email: email });
 
@@ -17,11 +18,6 @@ const getUserId = async (email) => {
   } catch (err) {
     return null;
   }
-  // const user = await User.findOne({ email: email });
-  // // if (!user) {
-  // //   throw new Error("User not found");
-  // // }
-  // return user._id; // user._id를 통해 ObjectId를 반환
 };
 
 const getUserByEmail = async (email) => {
@@ -34,9 +30,30 @@ const getUserByEmail = async (email) => {
     return null;
   }
 }; //유저 정보를 가져옴
+const changeDbname = async (email, newNickname) => {
+  try {
+    // 이메일로 사용자를 찾고 nickname을 업데이트합니다.
+    const updatedUser = await User.findOneAndUpdate(
+      { email: email }, // 수정할 사용자를 찾기 위한 조건
+      { nickname: newNickname }, // 업데이트할 필드
+      { new: true } // 업데이트된 문서를 반환하도록 설정
+    );
 
+    if (updatedUser) {
+      console.log("Nickname updated successfully:", updatedUser);
+      return updatedUser; // 업데이트된 사용자 정보를 반환
+    } else {
+      console.log("User not found");
+      return null; // 사용자가 존재하지 않음
+    }
+  } catch (error) {
+    console.error("Error updating nickname:", error);
+    throw error; // 에러를 호출자에게 전달
+  }
+};
 module.exports = {
   createUser,
   getUserByEmail,
   getUserId,
+  changeDbname,
 };

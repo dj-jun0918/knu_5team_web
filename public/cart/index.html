@@ -1,10 +1,9 @@
 <html>
   <head>
+    <script src="./index.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <script src="./index.js" defer></script>
-    <title>Product List</title>
   </head>
   <body>
     <header>
@@ -16,13 +15,11 @@
         </div>
       </nav>
     </header>
-    <main>
-      <section class="product-list-wrapper" id="product_list_wrapper">
-        <!-- 제품 목록이 여기에 렌더링됩니다 -->
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2023 Product List. All rights reserved.</p>
-    </footer>
+    <div class="container">
+      <section id="cart-container"></section>
+      <div class="order-button-wrapper">
+        <button id="order-button">구매하기</button>
+      </div>
+    </div>
   </body>
 </html>

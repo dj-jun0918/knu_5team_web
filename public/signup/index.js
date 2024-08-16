@@ -1,7 +1,7 @@
 const signupEmail = document.getElementById("signup_email");
 const signupPassword = document.getElementById("signup_password");
 const signupNickname = document.getElementById("signup_nickname");
-
+const token = localStorage.getItem("token");
 const signupButton = document.getElementById("signup_button");
 
 signupButton.addEventListener("click", async () => {
@@ -21,6 +21,7 @@ signupButton.addEventListener("click", async () => {
     });
     if (signupResult.ok) {
       alert("회원가입 성공");
+      window.location.href = "../";
     } else {
       alert("회원가입 실패");
     }

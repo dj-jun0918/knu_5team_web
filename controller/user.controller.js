@@ -1,6 +1,10 @@
 const userController = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { createUser, getUserByEmail } = require("../service/user.service");
+const {
+  createUser,
+  getUserByEmail,
+  changeDbname,
+} = require("../service/user.service");
 const jwt = require("jsonwebtoken");
 userController.post("/signin", async (req, res) => {
   const body = req.body;
@@ -40,21 +44,19 @@ userController.post("/signin", async (req, res) => {
 
 userController.post("/token", async (req, res) => {
   const token = req.body.token;
-  if (token) {
-    const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
-    try {
-      if (isValidToken) {
-        return res.json({ result: true, token });
-      } else {
-        return res
-          .status(401)
-          .json({ result: false, message: "로그인 상태가 아닙니다." });
-      }
-    } catch (err) {
+  const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    if (isValidToken) {
+      return res.json({ result: true, token });
+    } else {
       return res
-        .json(401)
-        .json({ result: false, message: "토큰이 존재하지 않습니다." });
+        .status(401)
+        .json({ result: false, message: "로그인 상태가 아닙니다." });
     }
+  } catch (err) {
+    return res
+      .status(401)
+      .json({ result: false, message: "토큰이 존재하지 않습니다." });
   }
 });
 
@@ -121,6 +123,40 @@ userController.post("/token", async (req, res) => {
     return res
       .status(401)
       .json({ result: false, message: "토큰이 존재하지 않습니다." });
+  }
+});
+userController.post("/getInfo", async (req, res) => {
+  const token = req.body.tokenKey;
+  const transToken = jwt.decode(token);
+  if (transToken === null) {
+    return res
+      .status(401)
+      .json({ result: false, message: "토큰이 존재하지 않습니다." });
+  }
+  try {
+    return res.json({ return: true, transToken });
+  } catch (err) {
+    return res
+      .status(401)
+      .json({ result: false, message: "토큰이 존재하지 않습니다." });
+  }
+});
+
+userController.post("/changeName", async (req, res) => {
+  const tokenKey = req.body.tokenKey;
+  const changingValue = req.body.changingNameValue;
+  const transToken = jwt.decode(tokenKey);
+  if (transToken === null) {
+    return res
+      .status(401)
+      .json({ result: false, message: "토큰이 존재하지 않습니다." });
+  }
+  try {
+    console.log(transToken.email);
+    await changeDbname(transToken.email, changingValue);
+    return res.status(201).json({ result: true });
+  } catch (err) {
+    return res.status(500).json({ result: false });
   }
 });
 

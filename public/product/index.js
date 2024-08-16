@@ -1,3 +1,6 @@
+const loginButton = document.getElementById("login_button");
+const mypageButton = document.getElementById("mypage_button");
+
 const fetchProductList = async () => {
   //1.product.controller와의 통신을 통해 `product`데이터를 가져옴
   const fetchResult = await fetch("/api/product", {
@@ -48,3 +51,14 @@ const renderProductList = async () => {
   });
 };
 renderProductList();
+loginButton.addEventListener("click", async () => {
+  window.location.href = "../signin";
+});
+
+mypageButton.addEventListener("click", async () => {
+  window.location.href = "../mypage";
+});
+
+function main() {
+  window.location.href = "../";
+}
