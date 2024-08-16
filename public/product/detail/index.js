@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get("productId");
 const productWrapper = document.getElementById("product_wrapper");
 // productId를 사용하여 필요한 작업 수행
-
+const token = localStorage.getItem("token");
 const fetchProduct = async () => {
   const productResult = await fetch("/api/product/oneProduct", {
     method: "post",
@@ -55,6 +55,10 @@ const makeDiv = async () => {
   //let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   purchaseButton.addEventListener("click", () => {
+    if (!token) {
+      window.location.href = "../../signin";
+      return;
+    }
     window.location.href = "../../order";
   });
 
@@ -124,11 +128,19 @@ const setProductItemToStorage = (obj) => {
       // } // 이따가 질문할 것
       console.log(typeof resultCart.orderCount);
       localStorage.setItem("cart", JSON.stringify(resultCart));
-      window.location.href = "../../cart";
+      if (token) {
+        window.location.href = "../../cart";
+      } else {
+        window.location.href = "../../sign";
+      }
     } else {
       pushCart.push(obj);
       localStorage.setItem("cart", JSON.stringify(pushCart));
-      window.location.href = "../../cart";
+      if (token) {
+        window.location.href = "../../cart";
+      } else {
+        window.location.href = "../../sign";
+      }
     }
   }
 }; //로컬 스토리지 저장을 자동화 하게 해주는 함수
