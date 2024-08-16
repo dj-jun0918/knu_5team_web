@@ -42,7 +42,7 @@ const makeDiv = async () => {
     <div>[상세설명] ${product.description}</div>
     <div>재고수량: ${product.stock}개</div>
     <input type="number" style="text-align:center" 
-    name="inputValue" id="inputValue" value="1" min="1"
+    name="inputValue" id="inputValue" value="1" min="1" max="${product.stock}" 
     />
     <button id="shoppingBasket"> 장바구니 </button>
     <button id="purchaseButton"> 구매하기 </button>
