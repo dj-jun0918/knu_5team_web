@@ -44,7 +44,6 @@ if (token) {
     // 장바구니가 비어 있을 경우 메시지 표시
     cartContainer.innerHTML = "<p>장바구니가 비어 있습니다.</p>";
   }
-
   const productSum = () => {
     const productQuan = cartStorage.map((product) => {
       return product.orderCount;
@@ -76,14 +75,16 @@ if (token) {
     location.reload();
   }
   //delete_product.addEventListener("click", () => {});
-  document.addEventListener("DOMContentLoaded", productSum);
+  if (cartStorage.length > 0) {
+    document.addEventListener("DOMContentLoaded", productSum);
+  }
 
   const orderProduct = document.getElementById("order-button");
 
   orderProduct.addEventListener("click", async () => {
-    const cart = localStorage.getItem("cart");
-    console.log(cart.length);
-    if (cart.length > -1) {
+    //const cart = localStorage.getItem("cart");
+    //console.log(cart.length);
+    if (cartStorage.length === 0) {
       window.location.href = "../product";
       return;
     }

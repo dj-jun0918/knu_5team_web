@@ -42,7 +42,7 @@ const makeDiv = async () => {
     <div>[상세설명] ${product.description}</div>
     <div>재고수량: ${product.stock}개</div>
     <input type="number" style="text-align:center" 
-    name="inputValue" id="inputValue" value="1" min="1" max="${product.stock}" 
+    name="inputValue" id="inputValue" value="1" min="1"
     />
     <button id="shoppingBasket"> 장바구니 </button>
     <button id="purchaseButton"> 구매하기 </button>
@@ -63,6 +63,10 @@ const makeDiv = async () => {
   });
 
   shoppingBasket.addEventListener("click", () => {
+    if (!token) {
+      window.location.href = "../../signin";
+      return;
+    }
     if (addButton.value > 0) {
       console.log(addButton.value);
       // 새로운 객체 생성
@@ -110,7 +114,9 @@ const setProductItemToStorage = (obj) => {
         Number(prevCart[existingProductIndex].orderCount);
       const stock = Number(prevCart[existingProductIndex].stock);
       if (orderCount > stock) {
-        alert(`(!)현재 ${prevCart.title} 상품은 수량 초과입니다`);
+        alert(
+          `(!)현재 ${prevCart[existingProductIndex].title} 상품은 수량 초과입니다`
+        );
         return;
       }
       const resultCart = prevCart.map((cart) => ({
